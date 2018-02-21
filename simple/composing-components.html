@@ -12,6 +12,21 @@
 
 <body>
     <div id="app">
+        <app-nav></app-nav>
+        <app-main>
+            <app-jumbotron title="Hello Jumbotron!" button-text="Click Here &raquo;" buttonlink="http://google.com">
+                <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+                    jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+                    unique.
+                </p>
+            </app-jumbotron>
+            <app-container>
+                <app-column heading="Heading One" colclass="col-md-3">This is my content.</app-column>
+                <app-column heading="Heading Two" colclass="col-md-3"></app-column>
+                <app-column heading="Heading Three" colclass="col-md-3"></app-column>
+                <app-column heading="Heading Four" colclass="col-md-3"></app-column>
+            </app-container>
+        </app-main>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -23,6 +38,117 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 
     <script>
+
+        Vue.component('app-nav', {
+            template: `
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                    
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">Disabled</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>`
+        })
+
+        Vue.component('app-jumbotron', {
+            props: {
+                title: {
+                    type: String,
+                    required: true,
+                    default: 'Default Title'
+                },
+                buttonText: {
+                    type: String,
+                    required: true,
+                    default: 'Default Button'
+                },
+                buttonlink: {
+                    type: String,
+                    required: true,
+                    default: '#'
+                }
+            },
+            template: `
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3">{{title}}</h1>
+                    <slot>Default Content Here.</slot>
+                    <p><a class="btn btn-primary btn-lg" :href="buttonlink" role="button">{{buttonText}}</a></p>
+                </div>
+        </div>
+      `
+        })
+
+        Vue.component('app-main', {
+            template: `<main role="main"><slot></slot></main>`
+        })
+
+        Vue.component('app-container', {
+            template: `
+            <div class="container">
+                <!-- Example row of columns -->
+                <div class="row">
+                    <slot></slot>
+                </div>
+            </div>
+            
+            `
+        })
+        Vue.component('app-column', {
+            props: {
+                heading: {
+                    type: String,
+                    required: true,
+                    default: 'Default Heading'
+                },
+                colclass: {
+                    type: String,
+                    required: false,
+                    default: 'col-md-4'
+                }
+            },
+            template: `
+            <div :class="colclass">
+                <h2>{{heading}}</h2>
+                <slot>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                </slot>
+                
+            </div>
+            
+            `
+        })
+
+        const app = new Vue({
+            el: '#app'
+        })
 
     </script>
 </body>
