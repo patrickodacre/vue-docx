@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <title>Composing Components</title>
+</head>
+
+<body>
+    <div id="app">
+        <button type="button" @click="changeComponent">Change</button>
+        <component v-bind:is="currentView"></component>
+    </div>
+
+
+    <script>
+        const thing = {
+            template: `<div>testing 1</div>`
+        }
+        const thing2 = {
+            template: `<div>testing 2</div>`
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                currentView: thing
+            },
+            methods: {
+                changeComponent() {
+                    this.currentView = thing2
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
